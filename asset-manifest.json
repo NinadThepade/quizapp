@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/quizapp/static/css/main.d1b05096.chunk.css",
-    "main.js": "/quizapp/static/js/main.67ce909f.chunk.js",
-    "main.js.map": "/quizapp/static/js/main.67ce909f.chunk.js.map",
+    "main.css": "/quizapp/static/css/main.e916d0f4.chunk.css",
+    "main.js": "/quizapp/static/js/main.ecbe6cc2.chunk.js",
+    "main.js.map": "/quizapp/static/js/main.ecbe6cc2.chunk.js.map",
     "runtime-main.js": "/quizapp/static/js/runtime-main.da13a292.js",
     "runtime-main.js.map": "/quizapp/static/js/runtime-main.da13a292.js.map",
-    "static/js/2.3ed2fa08.chunk.js": "/quizapp/static/js/2.3ed2fa08.chunk.js",
-    "static/js/2.3ed2fa08.chunk.js.map": "/quizapp/static/js/2.3ed2fa08.chunk.js.map",
+    "static/js/2.3f074a2b.chunk.js": "/quizapp/static/js/2.3f074a2b.chunk.js",
+    "static/js/2.3f074a2b.chunk.js.map": "/quizapp/static/js/2.3f074a2b.chunk.js.map",
     "index.html": "/quizapp/index.html",
-    "precache-manifest.d65370ab6b07892b6026d86265f2bff8.js": "/quizapp/precache-manifest.d65370ab6b07892b6026d86265f2bff8.js",
+    "precache-manifest.72e4a4190a93208034d1cf440bb6ebc0.js": "/quizapp/precache-manifest.72e4a4190a93208034d1cf440bb6ebc0.js",
     "service-worker.js": "/quizapp/service-worker.js",
-    "static/css/main.d1b05096.chunk.css.map": "/quizapp/static/css/main.d1b05096.chunk.css.map",
-    "static/js/2.3ed2fa08.chunk.js.LICENSE.txt": "/quizapp/static/js/2.3ed2fa08.chunk.js.LICENSE.txt",
-    "static/media/logo.svg": "/quizapp/static/media/logo.5d5d9eef.svg"
+    "static/css/main.e916d0f4.chunk.css.map": "/quizapp/static/css/main.e916d0f4.chunk.css.map",
+    "static/js/2.3f074a2b.chunk.js.LICENSE.txt": "/quizapp/static/js/2.3f074a2b.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/quizapp/static/media/blank-paper-unsplash.8b11aa76.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.da13a292.js",
-    "static/js/2.3ed2fa08.chunk.js",
-    "static/css/main.d1b05096.chunk.css",
-    "static/js/main.67ce909f.chunk.js"
+    "static/js/2.3f074a2b.chunk.js",
+    "static/css/main.e916d0f4.chunk.css",
+    "static/js/main.ecbe6cc2.chunk.js"
   ]
 }
