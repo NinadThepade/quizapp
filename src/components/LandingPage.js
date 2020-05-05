@@ -7,7 +7,7 @@ const LandingPage = () => {
       <section className="content-container">
         <h1>Landing page for Quiz</h1>
         <div className="button-container">
-          <Link to='/start' className="start-button">Start</Link>
+          <Link to='/start-quiz' className="start-button">Start</Link>
         </div>
       </section>
     </div>
