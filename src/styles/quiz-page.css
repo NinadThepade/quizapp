@@ -83,3 +83,8 @@
 .buttons-container button:hover {
   background: red;
 }
+
+.buttons-container button:disabled {
+  background: grey;
+  pointer-events: none;
+}

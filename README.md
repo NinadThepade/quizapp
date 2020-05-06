@@ -1,5 +1,7 @@
 Access the demo here: https://ninadthepade.github.io/quizapp/
 
+List of questions used from https://gist.github.com/barman47/dbc4ecff10f9e07cfcda62d92e762c43
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -10,37 +10,37 @@ export default class QuizPage extends Component {
       questions,
       currentQuestion: {},
       nextQuestion: {},
-      previousQuestion: {},
       answer: "",
       optionSelected: "",
       numberOfAnsweredQuestions: 0,
       correctAnswers: 0,
       wrongAnswers: 0,
       score: 0,
-      time: {}
+      time: {},
+      nextButtonDisabled: false
     };
+    this.interval = null
   }
 
   componentDidMount () {
-    const { questions, currentQuestion, previousQuestion, nextQuestion } = this.state
-    this.displayQuestions(questions, currentQuestion, previousQuestion, nextQuestion)
+    const { questions, currentQuestion, nextQuestion } = this.state
+    this.displayQuestions(questions, currentQuestion, nextQuestion)
+    this.startTimer()
   }
 
-  displayQuestions = (questions = this.state.questions, currentQuestion, previousQuestion, nextQuestion) => {
+  displayQuestions = (questions = this.state.questions, currentQuestion, nextQuestion) => {
     let { currentQuestionNumber } = this.state;
     if (Array.isArray(this.state.questions) && this.state.questions.length) { 
       questions = this.state.questions;
       currentQuestion = questions[currentQuestionNumber];
-      previousQuestion = questions[currentQuestionNumber - 1];
       nextQuestion = questions[currentQuestionNumber + 1];
       const answer = currentQuestion.answer;
       this.setState({
         currentQuestion,
-        previousQuestion,
         nextQuestion,
         answer,
         totalNumberOfQuestions: questions.length
-      })
+      }, () => {this.handleDisableNext()})
     }
   };
 
@@ -85,7 +85,7 @@ export default class QuizPage extends Component {
       correctAnswers: prevState.correctAnswers + 1,
       currentQuestionNumber: prevState.currentQuestionNumber + 1,
     }), () => {
-      this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.previousQuestion, this.state.nextQuestion);
+      this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.nextQuestion);
     })
   }
 
@@ -95,12 +95,55 @@ export default class QuizPage extends Component {
       wrongAnswers: prevState.wrongAnswers + 1,
       currentQuestionNumber: prevState.currentQuestionNumber + 1,
     }), () => {
-      this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.previousQuestion, this.state.nextQuestion);
+      this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.nextQuestion);
     })
   }
 
+  startTimer () {
+    const quizTotalTime = Date.now() + 180000
+    this.interval = setInterval(() => {
+      const now = new Date();
+      const timeLeft = quizTotalTime - now
+
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60))/(1000 * 60))
+      const seconds = Math.floor((timeLeft % (1000 * 60))/(1000))
+
+      if (timeLeft < 0) {
+        clearInterval(this.interval);
+        this.setState({
+          time: {
+            minutes: 0,
+            seconds: 0
+          }
+        }, () =>  {
+          alert('Quiz timeout');
+          this.props.history.push('/quizapp/show-results')
+        })
+      } else {
+        this.setState({
+          time: {
+            minutes,
+            seconds
+          }
+        })
+      }
+    }, 1000);
+  }
+
+  handleDisableNext() {
+    if(this.state.nextQuestion === undefined || this.state.currentQuestionNumber + 1 === this.state.totalNumberOfQuestions) {
+      this.setState({
+        nextButtonDisabled: true
+      })
+    } else {
+      this.setState({
+        nextButtonDisabled: false
+      })
+    }
+  }
+
   render() {
-    const {currentQuestion, currentQuestionNumber, totalNumberOfQuestions} = this.state;
+    const {currentQuestion, currentQuestionNumber, totalNumberOfQuestions, time} = this.state;
 
     return (
       <Fragment>
@@ -109,7 +152,7 @@ export default class QuizPage extends Component {
         </div>
         <div className="question-container">
           <div className="timer-container">
-            10:10
+            Time left - {time.minutes}:{time.seconds}
           </div>
           <h4>{currentQuestion.question}</h4>
           <div className="options-container">
@@ -121,7 +164,7 @@ export default class QuizPage extends Component {
 
           <div className="buttons-container">
             <button onClick={this.handleQuitClicked}>Quit</button>
-            <button onClick={this.handleNextClicked}>Next</button>
+            <button onClick={this.handleNextClicked} disabled={this.state.nextButtonDisabled}>Next</button>
           </div>
         </div>
       </Fragment>
