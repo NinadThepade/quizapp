@@ -1,6 +1,11 @@
 @import './styles/landing-page.css';
 @import './styles/quiz-page.css';
+@import './styles/results-page.css';
 
 .App {
   text-align: center;
+}
+
+html {
+  background-color: #AF9BF3;
 }

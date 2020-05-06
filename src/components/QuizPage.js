@@ -16,8 +16,7 @@ export default class QuizPage extends Component {
       correctAnswers: 0,
       wrongAnswers: 0,
       score: 0,
-      time: {},
-      nextButtonDisabled: false
+      time: {}
     };
     this.interval = null
   }
@@ -26,6 +25,10 @@ export default class QuizPage extends Component {
     const { questions, currentQuestion, nextQuestion } = this.state
     this.displayQuestions(questions, currentQuestion, nextQuestion)
     this.startTimer()
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.interval)
   }
 
   displayQuestions = (questions = this.state.questions, currentQuestion, nextQuestion) => {
@@ -40,7 +43,7 @@ export default class QuizPage extends Component {
         nextQuestion,
         answer,
         totalNumberOfQuestions: questions.length
-      }, () => {this.handleDisableNext()})
+      })
     }
   };
 
@@ -74,7 +77,7 @@ export default class QuizPage extends Component {
 
   handleQuitClicked = () => {
     if(window.confirm('Are you sure?') ) {
-      this.props.history.push('/quizapp/show-results')
+      this.handleEndGame()
     }
   }
 
@@ -85,7 +88,11 @@ export default class QuizPage extends Component {
       correctAnswers: prevState.correctAnswers + 1,
       currentQuestionNumber: prevState.currentQuestionNumber + 1,
     }), () => {
-      this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.nextQuestion);
+      if(this.state.nextQuestion === undefined) {
+        this.handleEndGame()
+      } else {
+        this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.nextQuestion);
+      }
     })
   }
 
@@ -95,7 +102,11 @@ export default class QuizPage extends Component {
       wrongAnswers: prevState.wrongAnswers + 1,
       currentQuestionNumber: prevState.currentQuestionNumber + 1,
     }), () => {
-      this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.nextQuestion);
+      if(this.state.nextQuestion === undefined) {
+        this.handleEndGame()
+      } else {
+        this.displayQuestions(this.state.questions, this.state.currentQuestion, this.state.nextQuestion);
+      }
     })
   }
 
@@ -116,8 +127,7 @@ export default class QuizPage extends Component {
             seconds: 0
           }
         }, () =>  {
-          alert('Quiz timeout');
-          this.props.history.push('/quizapp/show-results')
+          this.handleEndGame()
         })
       } else {
         this.setState({
@@ -130,16 +140,17 @@ export default class QuizPage extends Component {
     }, 1000);
   }
 
-  handleDisableNext() {
-    if(this.state.nextQuestion === undefined || this.state.currentQuestionNumber + 1 === this.state.totalNumberOfQuestions) {
-      this.setState({
-        nextButtonDisabled: true
-      })
-    } else {
-      this.setState({
-        nextButtonDisabled: false
-      })
+  handleEndGame() {
+    alert('Quiz over');
+    const quizStats = {
+      score: this.state.score,
+      totalNumberOfQuestions: this.state.totalNumberOfQuestions,
+      numberOfAnsweredQuestions: this.state.numberOfAnsweredQuestions,
+      correctAnswers: this.state.correctAnswers,
+      wrongAnswers: this.state.wrongAnswers
     }
+
+    this.props.history.push('/quizapp/show-results', quizStats)
   }
 
   render() {
@@ -148,7 +159,7 @@ export default class QuizPage extends Component {
     return (
       <Fragment>
         <div className="question-number-container">
-    <span style={{fontSize: 36 + 'px'}}>{currentQuestionNumber + 1}</span>/{totalNumberOfQuestions}
+          <span style={{fontSize: 36 + 'px'}}>{currentQuestionNumber + 1}</span>/{totalNumberOfQuestions}
         </div>
         <div className="question-container">
           <div className="timer-container">
@@ -164,7 +175,7 @@ export default class QuizPage extends Component {
 
           <div className="buttons-container">
             <button onClick={this.handleQuitClicked}>Quit</button>
-            <button onClick={this.handleNextClicked} disabled={this.state.nextButtonDisabled}>Next</button>
+            <button onClick={this.handleNextClicked}>Next</button>
           </div>
         </div>
       </Fragment>

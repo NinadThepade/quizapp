@@ -1,9 +1,6 @@
 .landingPage {
   height: 100vh;
   width: 100vw;
-  background: url('../Assets/blank-paper-unsplash.jpg');
-  background-size: cover;
-  background-position: center;
 }
 
 .content-container {
@@ -16,6 +13,8 @@
   height: 50%;
   margin: auto;
   text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 a.start-button {
