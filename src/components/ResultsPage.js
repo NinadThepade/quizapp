@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import GaugeChart from 'react-gauge-chart'
+import SocialShareContainer from './SocialShareContainer'
 
 export default class ResultsPage extends Component {
   constructor (props) {
@@ -58,6 +59,10 @@ export default class ResultsPage extends Component {
                 <span className="stat-value">{this.state.wrongAnswers}</span>
                 <span className="stat-title"> Wrong Answers</span>
               </div>
+            </div>
+            <div className="share-row">
+              <span>Share the quiz with your friends</span>
+              <SocialShareContainer></SocialShareContainer>
             </div>
           </div>
         </Fragment>

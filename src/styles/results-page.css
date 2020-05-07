@@ -50,3 +50,14 @@
 .wrong-answer-dot {
   background: #EA4228
 }
+
+.share-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  height: 30px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: aliceblue;
+}

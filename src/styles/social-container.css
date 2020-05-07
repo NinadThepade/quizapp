@@ -1,0 +1,21 @@
+.share-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.share-some-network {
+  display: inline-block;
+}
+
+.share-some-network-share-button {
+  cursor: pointer;
+}
+
+.share-some-network-share-button:hover:not(:active) {
+  opacity: 0.75;
+}
+
+.share-some-network__custom-icon {
+  width:32px;
+  height:32px;
+}
